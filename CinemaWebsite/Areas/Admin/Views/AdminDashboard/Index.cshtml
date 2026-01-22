@@ -1,0 +1,63 @@
+﻿@model CinemaWebsite.Areas.Admin.Models.AdminViewModel
+@{
+    ViewData["Title"] = "The Control Room";
+}
+
+<div class="container">
+    <h1 class="text-white">The Control Room</h1>
+    <p class="text-white">Welcome Admin</p>
+
+    <div class="row">
+        <div class="col">
+            <!--Role table here-->
+        </div>
+
+        <div class="col">
+            <!--User roles table here-->
+            <h2 class="text-white">Manage User Roles</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Email</th>
+                        <th>Current Roles</th>
+                        <th>Add Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        //Find the correct roles for the user
+                        List<string> currentRoles = Model.UserRoles[user.Id];
+                        <tr>
+                            <td>@user.Fullname</td>
+                            <td>@user.Email</td>
+                            <td>
+                                @foreach (var role in currentRoles)
+                                {
+                                    @role
+                                }
+                            </td>
+                            <td>
+                                <!--Add the form for assigning roles-->
+                                <form asp-area="Admin" asp-controller="AdminDashboard" asp-action="AssignRole" method="post">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+                                    <select name="roleName" class="form-select">
+                                        @foreach (var role in Model.Roles)
+                                        {
+                                           <option value="@role.Name">@role.Name</option> 
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Assign</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
