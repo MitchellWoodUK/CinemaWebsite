@@ -19,12 +19,16 @@ html {
 
 body {
     margin-bottom: 60px;
-    background-color: #234C6A;
+    background-color: #EBF4F6;
+}
+
+.content-box {
+    background-color: #1B3C53;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
@@ -34,10 +38,3 @@ body {
     background-color: #1B3C53;
 }
 
-#homeBanner{
-    background-image: url("../Images/cinema_banner.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 55vh;
-}

@@ -8,56 +8,109 @@
     <p class="text-white">Welcome Admin</p>
 
     <div class="row">
-        <div class="col">
-            <!--Role table here-->
-        </div>
 
-        <div class="col">
-            <!--User roles table here-->
-            <h2 class="text-white">Manage User Roles</h2>
+        <!--Role table here-->
+        <h2 class="text-white">Add Roles</h2>
+        <form asp-area="Admin" asp-controller="AdminDashboard" asp-action="AddRole" method="post" class="d-flex">
+            <input type="text" name="role" class="form-control" placeholder="Role Name..." required />
+            <button type="submit" class="btn btn-success">Add Role</button>
+        </form>
 
-            <table class="table table-striped">
-                <thead>
+
+        <h2 class="text-white mt-5">Manage Existing Roles</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.Roles)
+                {
                     <tr>
-                        <th>User</th>
-                        <th>Email</th>
-                        <th>Current Roles</th>
-                        <th>Add Role</th>
+                        <td>@role.Name</td>
+                        <td>
+                            <form asp-area="Admin" asp-controller="AdminDashboard" asp-action="DeleteRole" method="post">
+                                <input type="hidden" name="roleID" value="@role.Id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var user in Model.Users)
-                    {
-                        //Find the correct roles for the user
-                        List<string> currentRoles = Model.UserRoles[user.Id];
-                        <tr>
-                            <td>@user.Fullname</td>
-                            <td>@user.Email</td>
-                            <td>
-                                @foreach (var role in currentRoles)
-                                {
-                                    @role
-                                }
-                            </td>
-                            <td>
-                                <!--Add the form for assigning roles-->
-                                <form asp-area="Admin" asp-controller="AdminDashboard" asp-action="AssignRole" method="post">
-                                    <input type="hidden" name="userId" value="@user.Id" />
-                                    <select name="roleName" class="form-select">
-                                        @foreach (var role in Model.Roles)
-                                        {
-                                           <option value="@role.Name">@role.Name</option> 
-                                        }
-                                    </select>
-                                    <button type="submit" class="btn btn-primary">Assign</button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
+
+
+
+
+
+
+
+
+
+
+        <!--User roles table here-->
+        <h2 class="text-white mt-5">Manage User Roles</h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Current Roles</th>
+                    <th>Add Role</th>
+                    <th>Remove Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    //Find the correct roles for the user
+                    List<string> currentRoles = Model.UserRoles[user.Id];
+                    <tr>
+                        <td>@user.Fullname</td>
+                        <td>@user.Email</td>
+                        <td>
+                            @foreach (var role in currentRoles)
+                            {
+                                <p>@role</p>
+                            }
+                        </td>
+                        <td>
+                            <!--Add the form for assigning roles-->
+                            <form asp-area="Admin" asp-controller="AdminDashboard" asp-action="AssignRole" method="post" class="d-flex">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <select name="roleName" class="form-select">
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        <option value="@role.Name">@role.Name</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-primary">Assign</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form asp-area="Admin" asp-controller="AdminDashboard" asp-action="RemoveRole" method="post" class="d-flex">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <select name="roleName" class="form-select">
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        <option value="@role.Name">@role.Name</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+
 
 
 </div>

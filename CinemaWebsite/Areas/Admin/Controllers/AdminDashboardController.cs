@@ -69,15 +69,51 @@ namespace CinemaWebsite.Areas.Admin.Controllers
         }
 
 
+        //POST for the remove role
+        [HttpPost]
+        public async Task<IActionResult> RemoveRole(string userId, string roleName)
+        {
+            //Find the user by the ID
+            var user = await _userManager.FindByIdAsync(userId);
+            //Remove the user from the selected role
+            await _userManager.RemoveFromRoleAsync(user, roleName);
+            return RedirectToAction("Index");
+        }
+
+
+        //POST for the add role
+        [HttpPost]
+        public async Task<IActionResult> AddRole(string role)
+        {
+            //check that the role name is not empty
+            if (!string.IsNullOrEmpty(role))
+            {
+                //check that the role does not already exist
+                if (!await _roleManager.RoleExistsAsync(role))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+                else
+                {
+                    return BadRequest("Role already exists!");
+                }
+            }
+            return RedirectToAction("Index");
+        }
 
 
 
+        //POST delete roles
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string roleID)
+        {
+            //Find the role by the ID
+            var role = await _roleManager.FindByIdAsync(roleID);
 
+            await _roleManager.DeleteAsync(role);
 
-
-
-
-
+            return RedirectToAction("Index");
+        }
 
 
 
