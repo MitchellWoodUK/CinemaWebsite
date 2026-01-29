@@ -10,5 +10,8 @@ namespace CinemaWebsite.Data
             : base(options)
         {
         }
+
+        public DbSet<FilmModel> Films { get; set; }
+
     }
 }
