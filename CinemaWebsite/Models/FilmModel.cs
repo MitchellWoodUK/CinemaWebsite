@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CinemaWebsite.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace CinemaWebsite.Models
 {
@@ -21,6 +22,9 @@ namespace CinemaWebsite.Models
         public int AgeRating { get; set; }
 
         [Required]
-        public string Genre { get; set; }
+        public Genre Genre { get; set; }
+
+        [Required]
+        public string Image {  get; set; }
     }
 }
