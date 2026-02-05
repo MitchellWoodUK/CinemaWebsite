@@ -43,6 +43,9 @@ app.MapControllerRoute(
     name: "Admin",
     pattern: "{area:exists}/{controller=AdminDashboard}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "Staff",
+    pattern: "{area:exists}/{controller=StaffDashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

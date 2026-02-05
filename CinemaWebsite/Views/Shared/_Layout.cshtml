@@ -4,10 +4,12 @@
     //Get the current logged in user
     var user = await UserMan.GetUserAsync(User);
     bool isAdmin = false;
+    bool isStaff = false;
     if (user != null)
     {
         //Check the role
         isAdmin = await UserMan.IsInRoleAsync(user, "Admin");
+        isStaff = await UserMan.IsInRoleAsync(user, "Staff");
     }
 }
 
@@ -41,6 +43,12 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminDashboard" asp-action="Index">The Control Room</a>
+                            </li>
+                        }
+                        @if (isAdmin || isStaff)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Staff" asp-controller="StaffDashboard" asp-action="Index">The Staff Room</a>
                             </li>
                         }
 

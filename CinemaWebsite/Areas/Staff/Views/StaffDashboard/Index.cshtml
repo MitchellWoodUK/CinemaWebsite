@@ -1,0 +1,63 @@
+﻿@using CinemaWebsite.Enums
+@model CinemaWebsite.Models.FilmModel;
+
+@{
+    ViewData["Title"] = "The Staff Room";
+}
+
+<div class="container">
+    <h1>The Staff Room</h1>
+    <form asp-area="Staff" asp-controller="StaffDashboard" asp-action="AddFilm" method="post" enctype="multipart/form-data">
+
+        <!--TITLE-->
+        <div class="form-group">
+            <label asp-for="Title" class="control-label">Film Title</label>
+            <input asp-for="Title"  class="form-control"/>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <!--DESCRIPTION-->
+        <div class="form-group">
+            <label asp-for="Description" class="control-label">Film Description</label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <!--RUNTIME-->
+        <div class="form-group">
+            <label asp-for="Runtime" class="control-label">Film Duration (in minutes)</label>
+            <input asp-for="Runtime" class="form-control" type="number" min="1"/>
+            <span asp-validation-for="Runtime" class="text-danger"></span>
+        </div>
+
+        <!--AGE RATING-->
+        <div class="form-group">
+            <label asp-for="AgeRating" class="control-label">Age Rating</label>
+            <input asp-for="AgeRating" class="form-control" type="number" />
+            <span asp-validation-for="AgeRating" class="text-danger"></span>
+        </div>
+
+        <!--GENRE-->
+        <div class="form-group">
+            <label asp-for="Genre" class="control-label">Genre</label>
+
+            <select asp-for="Genre" class="form-control">
+                @foreach (var genre in Enum.GetValues(typeof(Genre)))
+                {
+                    <option value="@genre">@genre</option>
+                }
+            </select>
+
+            <span asp-validation-for="Genre" class="text-danger"></span>
+        </div>
+
+        <!--IMAGE-->
+        <div class="form-group">
+            <label asp-for="Image" class="control-label">Film Image</label>
+            <input name="imageFile" class="form-control-file" type="file" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Film</button>
+    </form>
+</div>
