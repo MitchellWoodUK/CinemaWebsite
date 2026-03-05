@@ -11,7 +11,10 @@ namespace CinemaWebsite.Data
         {
         }
 
+        //Set the database tables
         public DbSet<FilmModel> Films { get; set; }
+        public DbSet<ScreeningModel> Screenings { get; set; }
+        public DbSet<BookingModel> Bookings { get; set; }
 
     }
 }

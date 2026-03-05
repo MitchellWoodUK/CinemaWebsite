@@ -26,5 +26,7 @@ namespace CinemaWebsite.Models
 
         [Required]
         public string Image {  get; set; }
+
+        public ICollection<ScreeningModel> Screenings { get; set; }
     }
 }
