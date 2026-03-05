@@ -19,5 +19,22 @@ namespace CinemaWebsite.Controllers
             var films = _context.Films.ToList();
             return View(films);
         }
+
+        //GET action for the details page
+        public IActionResult Details(int id)
+        {
+            //Get the film by the id
+            var film = _context.Films.Find(id);
+
+            //check that the film could be found
+            if (film == null)
+            {
+                return NotFound();
+            }
+            //pass the film to the view.
+            return View(film);
+        } 
+
+
     }
 }

@@ -1,0 +1,24 @@
+﻿@model CinemaWebsite.Models.FilmModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+
+<div class="container my-5 ">
+    <h1>@Model.Title</h1>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-4">
+            <!--Image-->
+            <img src="@Url.Content("~" + Model.Image)" class="card-img-top" style="height:60vh; object-fit:cover;">
+        </div>
+
+        <div class="col-8 p-5">
+            <!--Data-->
+            <p><strong>Description:</strong>@Model.Description</p>
+            <p><strong>Runtime:</strong>@Model.Runtime</p>
+            <p><strong>Age Rating:</strong>@Model.AgeRating</p>
+            <p><strong>Genre:</strong>@Model.Genre</p>
+        </div>
+    </div>
+</div>

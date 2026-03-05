@@ -12,16 +12,18 @@
         {
             <div class="col-md-4">
                 <!--Card-->
-                <div class="card" style="width: 18rem;">
-                    <img src="@Url.Content("~" + film.Image)" class="card-img-top" >
-                    <div class="card-body">
-                        <h5 class="card-title">@film.Title</h5>
-                        <p class="card-text">Age: @film.AgeRating</p>
+
+                <a asp-action="Details" asp-route-id="@film.Id">
+                    <div class="card" style="width: 18rem;">
+                        <img src="@Url.Content("~" + film.Image)" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">@film.Title</h5>
+                            <p class="card-text">Age: @film.AgeRating</p>
+                        </div>
                     </div>
-                </div>
+                </a>
 
-
-            </div>
+            </div> 
         }
     </div>
 
