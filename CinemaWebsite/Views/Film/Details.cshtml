@@ -1,11 +1,28 @@
-﻿@model CinemaWebsite.Models.FilmModel
+﻿@using Microsoft.AspNetCore.Identity
+@model CinemaWebsite.Models.FilmModel
+
+@inject UserManager<CustomUserModel> UserManager
 @{
     ViewData["Title"] = Model.Title;
+
+    //Check what role the user has
+    var user = await UserManager.GetUserAsync(User);
+    bool isStaff = false;
+    if (user != null)
+    {
+        //Check the role
+        isStaff = await UserManager.IsInRoleAsync(user, "Staff");
+    }
+
 }
 
 
 <div class="container my-5 ">
     <h1>@Model.Title</h1>
+    @if (isStaff == true)
+    {
+        <a asp-area="" asp-controller="Screening" asp-action="Create" asp-route-filmId="@Model.Id">Add Showing</a>
+    }
 
     <div class="row d-flex justify-content-center">
         <div class="col-4">
@@ -19,6 +36,18 @@
             <p><strong>Runtime:</strong>@Model.Runtime</p>
             <p><strong>Age Rating:</strong>@Model.AgeRating</p>
             <p><strong>Genre:</strong>@Model.Genre</p>
+
+            @if (Model.Screenings != null)
+            {
+                @foreach (var screening in Model.Screenings)
+                {
+                    <a asp-controller="Booking" asp-action="Create" asp-route-screeningId="@screening.Id">
+                        <h5>@screening.StartTime</h5>
+                        <p>£@screening.Price</p>
+                    </a>
+                }
+            }
+
         </div>
     </div>
 </div>

@@ -1,5 +1,7 @@
 ﻿using CinemaWebsite.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace CinemaWebsite.Controllers
 {
@@ -21,10 +23,12 @@ namespace CinemaWebsite.Controllers
         }
 
         //GET action for the details page
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            //Get the film by the id
-            var film = _context.Films.Find(id);
+            //Get the film by the id and add a list of screenings for that film
+            var film = await _context.Films
+                .Include(f => f.Screenings)
+                .FirstOrDefaultAsync(f => f.Id == id);
 
             //check that the film could be found
             if (film == null)
